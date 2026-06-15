@@ -12,7 +12,7 @@ method:"POST",
 headers:{
 "Content-Type":"application/json",
 "Authorization":
-"Bearer ${process.env.OPENAI_API_KEY}"
+`Bearer ${process.env.OPENAI_API_KEY}`
 },
 body:JSON.stringify({
 
@@ -53,7 +53,27 @@ temperature:0.3
 
 const data =
 await response.json();
+console.log("OpenAI response:", data);
 
+if (!response.ok) {
+  return {
+    statusCode: response.status,
+    body: JSON.stringify({
+      answer: "Lỗi OpenAI: " +
+              (data.error?.message || "Không xác định")
+    })
+  };
+}
+
+if (!data.choices || !data.choices.length) {
+  return {
+    statusCode: 500,
+    body: JSON.stringify({
+      answer: "OpenAI không trả về câu trả lời."
+    })
+  };
+}
+console.log(JSON.stringify(data, null, 2));
 return{
 statusCode:200,
 body:JSON.stringify({
