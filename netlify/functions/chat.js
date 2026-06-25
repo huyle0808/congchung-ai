@@ -1,5 +1,18 @@
+
 exports.handler = async (event) => {
 
+console.log("OPENAI_API_KEY:", process.env.OPENAI_API_KEY);
+
+if (!process.env.OPENAI_API_KEY) {
+  return {
+    statusCode: 500,
+    body: JSON.stringify({
+      answer: "OPENAI_API_KEY chưa được Netlify nhận."
+    })
+  };
+}
+
+try{
 try{
 
 const { question } =
