@@ -10,9 +10,6 @@ if (!process.env.OPENAI_API_KEY) {
       answer: "OPENAI_API_KEY chưa được Netlify nhận."
     })
   };
-}
-
-try{
 try{
 
 const { question } =
