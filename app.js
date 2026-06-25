@@ -39,6 +39,10 @@ question
 
 const data = await response.json();
 
+if (!response.ok) {
+  throw new Error(data.answer || "Lỗi từ server");
+}
+
 document.getElementById("loading").remove();
 
 chatBox.innerHTML += `
